@@ -9,3 +9,14 @@ function hideSidebar() {
     const sidebar = document.querySelector('.sidebar')
     sidebar.style.display = 'none'
 }
+// ===================
+// CODE DU DROPDOWN MENU - OUVRIR ET FERMER LE DROPDOWN
+// ===================
+function showDropdown() {
+    const dropdown = document.querySelector('.dropdown-menu')
+    dropdown.style.opacity = '1'
+}
+function hideDropdown() {
+    const dropdown = document.querySelector('.dropdown-menu')
+    dropdown.style.opacity = '0'
+}
