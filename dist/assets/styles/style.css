@@ -1,7 +1,10 @@
 /* ===================
  * IMPORTS
  * =================== */
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wdth,wght@0,75..100,100..700;1,75..100,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 /* ===================
  * VARIABLES CSS
@@ -9,17 +12,20 @@
 :root {
     /* Couleurs*/
     --primary-color: #FFC900;
-    --secondary-color: #00653C;
+    --secondary-color: #00653d8e;
+    --secondary-color: #00ff9956;
     --white: #ffffff;
     --black: #000000;
     --gray-200: #e5e7eb;
     --gray-400: #b9bcba;
     --neutral-700: #404040;
+    --neutral-700: #211951;
     /* Font Family */
-    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Roboto, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
     "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
     "Source Han Sans CN", sans-serif;
+    --ff-titre: "IBM Plex Sans";
+    --ff-titre-2: "Plus Jakarta Sans";
     /* Blur */
     --backdrop-blur: 9px;
     /* Box Shadow */
@@ -42,6 +48,8 @@
     --fw-6: 600;
     --fw-7: 700;
     --fw-8: 800;
+    /* Transitions */
+    --tr-1: all 0.3s ease-in-out;
 }
 
 /* ===================
@@ -61,13 +69,10 @@ html, body {
     background-color: var(--black);
     color: var(--white);
     min-height: 100vh;
-    background-image: url(/dist/assets/images/Aurores-Boréales.png);
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     font-family: var(--default-font-family);
 }
-/* ENLEVER CE MARGIN TOP A LA FIN DU DEVELOPPEMENT DE LA */
+
 
 img, picture, video, canvas, svg {
     display: block;
@@ -100,6 +105,12 @@ li {
     padding-right: 0.5rem;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .col {
     display: flex;
     flex-direction: column;
@@ -113,6 +124,9 @@ li {
 
 .jc_space-between {
     justify-content: space-between;
+}
+.jc_flex-start {
+    justify-content: flex-start;
 }
 .ali_flex-start {
     align-items: flex-start;
@@ -138,19 +152,24 @@ li {
     border-left: 1px solid var(--primary-color);
     margin-left: 0.3rem;
     padding: 0.1rem 20px;
+    opacity: 0.7;
+}
+
+.link-yellow-line-left:hover {
+    opacity: 1;
 }
 
 .link-yellow-underline {
+    opacity: 0.7;
     text-decoration: underline; /* On garde le soulignement */
     text-decoration-color: rgba(var(--primary-color-rgb), 0.3); /* Couleur de l'underline avec opacité faible */
     text-underline-offset: 5px; /* Espacement entre le texte et l'underline (ajustez selon besoin) */
     color: var(--primary-color); /* Couleur du texte */
-    transition: text-decoration-color 0.3s ease-in-out; /* Transition pour l'opacité de l'underline */
+    transition: all 0.3s ease-in-out; /* Transition pour l'opacité de l'underline */
 }
 
 .link-yellow-underline:hover {
-    text-decoration-color: rgba(var(--primary-color-rgb), 1); /* Opacité de l'underline à 1 au survol */
-    /* Vous pouvez enlever text-decoration: underline; ici, car il est déjà défini dans l'état par défaut */
+    opacity: 1;
 }
 
 .link {
@@ -203,7 +222,6 @@ details > ul {
 details > ul .img-ctn {
     max-width: 300px;
     min-height: 100px;
-    background-color: #FFC900;
     padding: 0.5rem;
     margin-left: 15px;
     margin-right: 35px;
@@ -214,6 +232,7 @@ details > ul .img-ctn {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    cursor: pointer;
 }
 
 
@@ -229,20 +248,33 @@ details > ul li a svg {
     margin-right: 0.7rem;
 }
 
+/* EFFET SUR LE TEXTE AU HOVER DE L'IMAGE */
+
+li a.texte-autres-services { /* Style de base pour le a.texte-autres-services */
+    opacity: 0.7; /* Opacité de base */
+    transition: opacity 0.3s ease; /* Transition pour l'opacité */
+}
+
+li:has(.img-ctn:hover) a.texte-autres-services { /* Sélectionne le a.texte-autres-services quand .img-ctn dans le LI est survolé */
+    opacity: 1; /* Opacité à 1 au survol de .img-ctn */
+}
+
 /* ===================
  * HEADER 
  * =================== */
  
  nav {
-     height: 3.5rem;
-     width: 100%;
-     background-color: rgba(0, 0, 0, 0.827);
-     backdrop-filter: blur(var(--backdrop-blur));
-     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-     box-shadow: var(--shadow-1);
-     display: flex;
-     align-items: center;
-     z-index: 50;
+    position: fixed;
+    top: 0;
+    height: 3.5rem;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.827);
+    backdrop-filter: blur(var(--backdrop-blur));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-1);
+    display: flex;
+    align-items: center;
+    z-index: 50;
 }
 ul {
     display: flex;
@@ -264,7 +296,7 @@ nav a {
 
     /* Animation de la flèche */
 a .icon-arrow {
-    transition: transform 0.3s ease;
+    transition: var(--tr-1);
 }
 
 /* Quand on survole le <li>, on cible l'icône à l'intérieur */
@@ -336,13 +368,11 @@ li:hover a .icon-arrow {
 }
 
 /* Fais en sorte que la sidebar ne soit pas visible sur les grands écrans */
-@media (min-width: 800px) {
+@media (min-width: 801px) {
     .hide-lg {
       display: none !important;
     }
 }
-
-
 
 @media(max-width: 400px) {
     .sidebar {
@@ -355,13 +385,112 @@ li:hover a .icon-arrow {
     .hide-sidebar {
         justify-content: space-between;
     }
+
 }
+
+/* ===================
+ * SET DE BOUTTONS ET MATERIEL DESIGN
+ * =================== */
+
+ /* ==================
+ * STYLE CTA - WHATSAPP / EMAIL
+ */
+
+ .cta {
+    min-width: 200px;
+    position: relative;
+    padding: 0.8rem;
+    border-radius: 7px;
+    border: 1px solid #FFC900;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: transparent;
+    color: var(--white);
+    overflow: hidden;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    text-transform: uppercase;
+}
+
+.cta:hover {
+    background: #FFC900;
+    box-shadow: 0 0 12px 2px rgba(255, 201, 0, 0.6); /* Réduction de l'effet néon */
+    color: black;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+/* Les éléments ci-dessous permettent l'animation en hover */
+
+.cta::before {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 86%;
+    position: absolute;
+    top: 7%;
+    left: 0%;
+    opacity: 0;
+    background: #fff;
+    box-shadow: 0 0 25px 10px #fff; /* Effet plus contenu */
+    -webkit-transform: skewX(-20deg);
+    -moz-transform: skewX(-20deg);
+    -ms-transform: skewX(-20deg);
+    -o-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+}
+
+.cta:hover::before {
+    -webkit-animation: sh02 0.5s 0s linear;
+    -moz-animation: sh02 0.5s 0s linear;
+    animation: sh02 0.5s 0s linear;
+}
+
+@keyframes sh02 {
+    from {
+        opacity: 0;
+        left: 0%;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        left: 100%;
+    }
+}
+
+/* Secondary Button Styles */
+.secondary-button {
+    min-width: 200px;
+    border-radius: 0.5rem; /* rounded-lg (Tailwind scale: 0.5rem = 8px) */
+    font-size: 0.875rem; /* text-sm/6 */
+    line-height: 1.5;    /* text-sm/6 - approximating line-height */
+    color: #F9FAFB; /* text-gray-100 - Tailwind gray-100 is very light gray */
+    padding: 0.8rem;
+    box-shadow: 0 0 0 2px rgba(209, 213, 219, 0.1); /* ring-2 ring-gray-300/10 - approximating Tailwind's ring with box-shadow */
+    transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, color 0.15s ease-in-out; /* Smooth transitions */
+    text-decoration: none; /* Ensure no default underline on link */
+    text-transform: uppercase;
+}
+  
+.secondary-button:hover,
+.secondary-button:focus {
+    background-color: #191919; /* hover:bg-[#191919] */
+    box-shadow: 0 0 0 2px rgba(229, 231, 235, 0.2); /* hover:ring-gray-200/20 - approximating with gray-200 and slightly higher opacity */
+    color: #F9FAFB; /* Keep text color consistent on hover */
+}
+
 /* ===================
  * DROPDOWN MENU
  * =================== */
 
-.dropdown-menu {
-    display: none;
+ .dropdown-menu {
+    /* display: none;  On ne cache plus avec display: none */
     justify-content: space-between;
     position: fixed; /* Utilisez 'fixed' pour le positionner par rapport au viewport */
     top: 48px;       /* Conservez votre position verticale actuelle */
@@ -373,21 +502,47 @@ li:hover a .icon-arrow {
     background-color: rgba(19, 19, 19, 0.928);
     backdrop-filter: blur(var(--backdrop-blur));
     overflow: hidden;
-    max-height: 0;
-    pointer-events: none;
-    transition: all .3s ease;
+    max-height: 0; /* Initialement hauteur nulle pour être caché */
+    opacity: 0;      /* Initialement opacité à 0 pour être invisible */
+    pointer-events: none; /* Empêche les interactions quand caché */
+    transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out; /* Transition sur max-height et opacity */
     z-index: 1000; /* Assurez-vous qu'il est au-dessus des autres éléments si nécessaire */
-}
-
-.dropdown-menu {
-	max-height: 1000px;
-    max-width: 772px;
 }
 
 /* Afficher le menu au survol du li */
 .dropdown:hover .dropdown-menu {
-    display: block;
-    pointer-events: auto;
+    /* display: block; On ne change plus display */
+    max-height: 722px; /* Hauteur maximale pour afficher le contenu */
+    opacity: 1;      /* Opacité à 1 pour rendre visible */
+    pointer-events: auto; /* Permet les interactions quand affiché */
+}
+
+.img-dropdown-ctn {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-image: url(/dist/assets/images/logo-gtz-square.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
+details > ul .img-ctn {
+    max-width: 300px;
+    min-height: 100px;
+    padding: 0.5rem;
+    margin-left: 15px;
+    margin-right: 35px;
+    margin-top: 0; /* Supprime la marge haute par défaut de <ul> */
+    margin-bottom: 0.3rem;
+    border-radius: 8px;
+    background-image: url(/dist/assets/images/logo-gtz-rectangle.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
 }
 
 .left-section {
@@ -400,7 +555,7 @@ li:hover a .icon-arrow {
 }
 .right-section {
     width: 40%;
-    max-height: 400px;
+    max-height: 350px;
     min-width: 250px;
     max-width: 350px;
     display: flex;
@@ -416,7 +571,8 @@ li:hover a .icon-arrow {
 }
 
 .right-section img {
-    width: 100%;
+    width: 100% !important;
+    max-height: 200px;
 }
 .megamenu-grid {
     display: grid;
@@ -428,35 +584,226 @@ li:hover a .icon-arrow {
     width: auto;
     height: auto;
     gap: 0.5rem;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     color: white;
     background-color: #09090908;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: var(--tr-1);
 }
 .megamenu-item:hover {
     background-color: rgba(0, 0, 0, 0.333);
 }
 .megamenu-item svg {
-    min-width: 18px;
-    min-height: 18px;
-    margin-top: 1.5px;
+    min-width: 12px;
+    min-height: 12px;
+    margin-top: 0.5px;
 }
 
 .cat-service-titre {
     color: var(--gray-400);
     font-size: var(--fs-3);
-    font-weight: var(--fw-6);
+    font-weight: var(--fw-5);
     margin-bottom: 1.2rem;
 }
 
-.desc-service-titre {
-    font-size: var(--fs-2);
+.desc-service {
+    font-size: var(--fs-1);
     color: var(--gray-400);
 }
+.desc-autres-services {
+    font-size: var(--fs-2);
+}
 .service-titre {
-    font-size: var(--fs-3);
-    font-weight: var(--fw-6);
+    font-size: var(--fs-2);
+    font-weight: var(--fw-5);
 }
 
+/* ===================
+ * CSS DU CANVAS
+ * =================== */
+
+#canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    max-width: 1440px;
+}
+.hero {
+    height: 95vh;
+    min-height: 30em;
+    transform: translateY(-1.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+/* Blur Overlay */
+.hero::before {
+    content: "";
+    background: hsla(0, 0%, 0%, 0.404);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(500px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.hero div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+}
+
+@media (max-width: 650px) {
+    .hero div {
+        padding: 0 1rem;
+    }
+}
+
+.hero h1 {
+    font-family: var(--ff-titre);
+    font-weight: var(--fw-4);
+    font-size: var(--fs-14);
+    font-size: clamp(3em, 9vw, 6em);
+    max-width: 1200px;
+    line-height: 1.1;
+}
+
+.hero .hero-texte {
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 2em auto 0 auto;
+    line-height: 1.8;
+    opacity: 0.7;
+}
+
+.tech-word {
+    position: relative; /* Important pour positionner l'image relativement à ce span */
+    display: inline-block; /* Pour que la largeur du span s'adapte au mot et pour le positionnement relatif */
+}
+
+.tech-underline {
+    min-width: 2.3em;
+    position: relative; /* Positionnement absolu par rapport à .tech-word */
+    top: 100%;        /* Place le haut de l'image juste en dessous du bas de .tech-word */
+    left: 65%;       /* Centre horizontalement l'image par rapport à .tech-word */
+    width: 50px;      /* Définissez la largeur souhaitée de votre image (ajustez selon besoin) */
+    height: auto;     /* Garde le ratio de l'image */
+    display: block;    /* Pour éviter des espaces inutiles sous l'image */
+    z-index: 2;
+}
+.tech-underline-mb {
+    min-width: 8rem;
+    margin-top: 0.5rem;
+    width: 50px;      /* Définissez la largeur souhaitée de votre image (ajustez selon besoin) */
+    display: none;    /* Pour éviter des espaces inutiles sous l'image */
+    z-index: 2;
+}
+.tab-sm {
+    display: none;
+}
+
+@media (max-width: 650px) {
+    .tab-sm {
+        display: block;
+    }
+    .tech-underline {
+        left: 70%;       /* Centre horizontalement l'image par rapport à .tech-word */
+    }
+}
+
+@media (max-width: 414px) {
+    .hero-btn-ctn {
+        display: flex;
+    }
+    .hero {
+        transform: translateY(-1rem);
+    }
+    .hidden-mb {
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .tech-underline {
+        display: none;
+    }
+    .tech-underline-mb {
+        display: block;
+    }
+}
+
+/* ===================
+ * HERO SECTION
+ * =================== */
+
+/* Buttons Container Styles */
+.hero-btn-ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3.5rem; /* mt-10 (Tailwind scale: 2.5rem = 40px) */
+    gap: 1.2rem; /* gap-x-6 (Tailwind scale: 1.5rem = 24px) */
+    padding: 0 1rem;
+}
+.hero-btn-ctn li a {
+    min-width: 400px;
+}
+/* Announcement Banner Styles */
+.announcement-banner {
+    display: flex;
+    justify-content: center;
+}
+
+.whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.35rem 0.35rem 0.35rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 99px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    outline: none;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.781);
+    font-size: 0.875rem;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.whatsapp-button:hover,
+.whatsapp-button:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.whatsapp-button__icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    font-weight: 600;
+    padding: 0.375rem 0.625rem;
+    margin-left: 0.5rem;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.whatsapp-button:hover .whatsapp-button__icon-wrapper,
+.whatsapp-button:focus .whatsapp-button__icon-wrapper {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.whatsapp-button__icon {
+    stroke: white;
+}
