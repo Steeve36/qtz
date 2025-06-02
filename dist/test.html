@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service - Développement d'Applications Web</title>
+    <link rel="stylesheet" href="/dist/assets/styles/style.css"> <!-- Assure-toi que le chemin est correct -->
+    <!-- Optionnel: Font Awesome si tu utilises des icônes -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+</head>
+<body>
+    
+    <nav>
+        <!-- NAVBAR - VERSION MOBILE -->
+        <ul class="container sidebar hide-lg">
+
+            <li onclick=hideSidebar()  class="hide-sidebar">
+                <a href="#" class="ctn-logo-qtz-mobile"><img class="logo-qtz-mobile" src="/dist/assets/images/logo-qtz-s-blanc.svg" alt="Logo Qatôrze Services"></a>
+                <a href="#">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 6l-12 12" />
+                        <path d="M6 6l12 12" />
+                    </svg>
+                </a>
+            </li>
+            <li class="btn-hover-bg"><a href="#" class="link">Acceuil</a></li>
+            <li class="btn-hover-bg">
+                <details>
+                    <summary>
+                        Services
+                        <svg class="icon-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </summary>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                                  </svg>
+                                <span>Sites Web</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <path d="M3 9h18"/>
+                                    <path d="M9 21V9"/>
+                                  </svg>
+                                <span>Web Apps</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                                    <path d="M12 18h.01"/>
+                                  </svg>
+                                <span>Apps Mobiles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                  </svg>
+                                <span>Installation Logiciels</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                  </svg>
+                                <span>Audit & Conseil</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="texte-autres-services">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 5l0 14" />
+                                    <path d="M5 12l14 0" />
+                                </svg>
+                                <span>Nos services et produits</span>
+                            </a>
+                            <div class="img-ctn">
+                            </div>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li class="btn-hover-bg"><a href="#" class="link">Outils</a></li>
+            <li class="btn-hover-bg"><a href="#" class="link">Portfolio</a></li>
+            <li class="link-yellow-underline"><a href="#">info@qatorze.com</a></li>
+        </ul>
+        <!-- NAVBAR VERSION GRANDS ECRANTS -->
+        <ul class="container">
+            <li><a href="#"><img class="logo-qtz" src="/dist/assets/images/logo-qtz-s-blanc.svg" alt="Logo Qatôrze Services"></a></li>
+            <li class="hideOnMobile"><a href="#" class="link">Acceuil</a></li>
+
+            <li class="hideOnMobile dropdown">
+                <a href="#" class="link">Services 
+                    <svg class="icon-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </a>
+                <div class="dropdown-menu row">
+                    <div class="row">
+                        <div class="left-section">
+                            <h4 class="cat-service-titre">Services principaux</h4>
+                            <div class="megamenu-grid">
+        
+                                <a href="/services/sites-web" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                                      </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Sites Web</p>
+                                      <p class="desc-service">Développement de sites vitrines et e-commerce sur mesure</p>
+                                    </div>
+                                </a>
+        
+                                <a href="/services/web-apps" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        <path d="M3 9h18"/>
+                                        <path d="M9 21V9"/>
+                                      </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Web Apps</p>
+                                      <p class="desc-service">Développement d'applications web progressives</p>
+                                    </div>
+                                </a>
+        
+                                <a href="/services/mobile-apps" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                                        <path d="M12 18h.01"/>
+                                      </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Apps Mobiles</p>
+                                      <p class="desc-service">Développement d'applications natifs Android/iOS et hybrides</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="/services/design" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                                            <path d="M2 2l7.586 7.586"/>
+                                            <circle cx="11" cy="11" r="2"/>
+                                        </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Design</p>
+                                      <p class="desc-service">Création d'interfaces UI/UX et d'identité visuelle</p>
+                                    </div>
+                                </a>
+
+                                <a href="/services/logiciels" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                      </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Logiciels</p>
+                                      <p class="desc-service">Installation et configuration logiciels métiers</p>
+                                    </div>
+                                </a>
+
+        
+                                <a href="/services/audit-conseil" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                      </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Audit & Conseil</p>
+                                      <p class="desc-service">Expertise technique et informatique</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="/services/design" class="megamenu-item">
+                                    <div class="megamenu-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                          </svg>
+                                    </div>
+                                    <div class="megamenu-text">
+                                      <p class="service-titre">Community M.</p>
+                                      <p class="desc-service">Optimisation et gestion réseaux sociaux</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="right-section ali_flex-start">
+                            <h4 class="cat-service-titre">Autres services</h4>
+                            <p class="desc-autres-services">Découvrez tous les services et produits proposés par Qatôrze</p>
+                            <a href="" class="col">
+                                <div class="img-dropdown-ctn">
+
+                                </div>
+                                <p>Voir plus</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="hideOnMobile"><a href="#" class="link">Outils</a></li>
+            <li class="hideOnMobile"><a href="#" class="link">Process</a></li>
+            <li class="hideOnMobile"><a href="#" class="link-yellow-line-left">info@qatorze.com</a></li>
+            <li onclick=showSidebar() class="menu-button"><a href="#">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M4 6h16" />
+                    <path d="M7 12h13" />
+                    <path d="M10 18h10" />
+                </svg>
+            </a></li>
+        </ul>
+    </nav>
+
+    <section class="services-header">
+        <div class="section-header_ctn container">
+            <div class="services-header_content">
+                <p class="petit-titre-section">Developpement Sites Web</p>
+                <h2 class="titre-service-2" data-text="Les meilleures technologies open-source pour répondre ">Les meilleures technologies open-source pour répondre à vos besoins spécifiques.</h2>
+            </div>
+    
+            <model-viewer
+            class="services-3d"
+            src="/dist/assets/3d/Green_Lightning_Bolt_0519182819_stylize.glb"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="0"
+            disable-zoom
+            ar
+            exposure="0.6"
+            environment-image="neutral"
+            shadow-intensity="1">
+            </model-viewer>
+        </div>
+    </section>
+
+    <main class="sercives_main-content">
+        <div class="row-on-pc_col-on-tab container">
+
+            <div class="half-width-lg_ctn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                </svg>
+                <br>
+                <h1 class="subtitle-service">Développement de sites web performants, et SEO friendly</h1>
+    
+                <p class="text-service-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore temporibus molestiae nemo voluptas beatae. Debitis ipsa eveniet, inventore dicta recusandae voluptates ipsum itaque necessitatibus officia eligendi sed aperiam saepe? Odit, numquam. Neque, dolor? Accusamus quos quisquam hic fugiat sequi eveniet.</p>
+    
+                <p class="text-service-2 m-top-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore temporibus molestiae nemo voluptas beatae. Debitis ipsa eveniet, inventore dicta recusandae voluptates ipsum itaque necessitatibus officia eligendi sed aperiam saepe? Odit, numquam. Neque, dolor? Accusamus quos quisquam hic fugiat sequi eveniet.</p>
+
+            </div>
+            
+            <!-- <button class="theme-toggle" id="themeToggle">Mode sombre</button> -->
+
+            <div class="half-width-lg_ctn">
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
+                        <!-- Devices -->
+                        <div class="devices-container">
+                            <!-- Mobile Device -->
+                            <figure class="mobile-device">
+                                <div class="mobile-frame">
+                                    <img id="mobile-image" class="mobile-image" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Image mobile">
+                                </div>
+                            </figure>
+                            <!-- End Mobile Device -->
+                
+                            <!-- Browser Device -->
+                            <figure class="browser-device">
+                                <div class="browser-header">
+                                    <div class="browser-dots">
+                                        <span class="browser-dot"></span>
+                                        <span class="browser-dot"></span>
+                                        <span class="browser-dot"></span>
+                                    </div>
+                                    <div class="browser-url">www.services.qatorze.com</div>
+                                </div>
+                
+                                <div class="browser-image-container">
+                                    <img id="tab-image" class="browser-image" src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png" alt="Capture d'écran du projet">
+                                </div>
+                            </figure>
+                            <!-- End Browser Device -->
+                        </div>
+                        <!-- End Devices -->
+                    </div>
+                </div>
+                <!-- End Tab Content -->
+            </div>
+
+        </div>
+
+        <!-- Section nos outils développement Web -->
+        <div class="container">
+            <div class="text-box">
+                <p class="petit-titre-section">Langages</p>
+                <h1 class="subtitle-service">Programmation</h1>
+                <p class="text-service-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore temporibus molestiae nemo voluptas beatae. Debitis ipsa eveniet, inventore dicta recusandae voluptates ipsum itaque necessitatibus officia eligendi sed aperiam saepe? Odit, numquam. Neque, dolor? Accusamus quos quisquam hic fugiat sequi eveniet.</p>
+            </div>
+            <div class="tech-grid">
+                <!-- Card 1 - JavaScript -->
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <img class="tech-logo" src="/dist/assets/images/logo-gtz-square.svg" alt="JavaScript Logo">
+                        <h3 class="tech-title">JavaScript</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p class="tech-description">Langage de script léger et orienté objet, essentiel pour le développement web interactif.</p>
+                        <div class="tech-details">
+                            <div class="tech-features">
+                                <h4 class="features-title">Avantages</h4>
+                                <ul class="features-list">
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Exécution côté client</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Ecosystème immense (npm)</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Multiplateforme</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tech-alternatives">
+                                <h4 class="alternatives-title">Alternatives</h4>
+                                <div class="alternatives-tags">
+                                    <span class="tag">TypeScript</span>
+                                    <span class="tag">Dart</span>
+                                    <span class="tag">WebAssembly</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-footer">
+
+                    </div>
+                </div>
+
+                <!-- TypeScript -->
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <img class="tech-logo" src="/dist/assets/images/logo-gtz-square.svg" alt="JavaScript Logo">
+                        <h3 class="tech-title">TypeScript</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p class="tech-description">Surcouche typée à JavaScript développée par Microsoft pour les applications à grande échelle.</p>
+                        <div class="tech-details">
+                            <div class="tech-features">
+                                <h4 class="features-title">Avantages</h4>
+                                <ul class="features-list">
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Typage statique optionnel</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Meilleure auto-complétion</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Compatibilité avec JavaScript</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tech-alternatives">
+                                <h4 class="alternatives-title">Alternatives</h4>
+                                <div class="alternatives-tags">
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">Flow</span>
+                                    <span class="tag">Dart</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-footer">
+                        
+                    </div>
+                </div>
+
+                <!-- Java -->
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <img class="tech-logo" src="/dist/assets/images/logo-gtz-square.svg" alt="JavaScript Logo">
+                        <h3 class="tech-title">Java</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p class="tech-description">Langage orienté objet robuste et multiplateforme, largement utilisé en entreprise.</p>
+                        <div class="tech-details">
+                            <div class="tech-features">
+                                <h4 class="features-title">Avantages</h4>
+                                <ul class="features-list">
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Portabilité (JVM)</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Écosystème mature</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Performances élevées</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tech-alternatives">
+                                <h4 class="alternatives-title">Alternatives</h4>
+                                <div class="alternatives-tags">
+                                    <span class="tag">Kotlin</span>
+                                    <span class="tag">C#</span>
+                                    <span class="tag">Scala</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-footer">
+
+                    </div>
+                </div>
+
+                <!-- Spring Boot -->
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <img class="tech-logo" src="/dist/assets/images/logo-gtz-square.svg" alt="JavaScript Logo">
+                        <h3 class="tech-title">Spring Boot</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p class="tech-description">Framework Java pour créer des applications autonomes prêtes pour la production.</p>
+                        <div class="tech-details">
+                            <div class="tech-features">
+                                <h4 class="features-title">Avantages</h4>
+                                <ul class="features-list">
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Configuration automatique</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Intégration Spring ecosystem</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Démarrage rapide</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tech-alternatives">
+                                <h4 class="alternatives-title">Alternatives</h4>
+                                <div class="alternatives-tags">
+                                    <span class="tag">Micronaut</span>
+                                    <span class="tag">Quarkus</span>
+                                    <span class="tag">Jakarta EE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-footer">
+
+                    </div>
+                </div>
+
+                <!-- Kotlin Multiplatform -->
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <img class="tech-logo" src="/dist/assets/images/logo-gtz-square.svg" alt="JavaScript Logo">
+                        <h3 class="tech-title">Kotlin Multiplatform</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p class="tech-description">Solution de JetBrains pour partager du code entre plateformes (iOS, Android, Web).</p>
+                        <div class="tech-details">
+                            <div class="tech-features">
+                                <h4 class="features-title">Avantages</h4>
+                                <ul class="features-list">
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Code partagé</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Native performance</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">✓</span>
+                                        <span class="feature-text">Écosystème croissant</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tech-alternatives">
+                                <h4 class="alternatives-title">Alternatives</h4>
+                                <div class="alternatives-tags">
+                                    <span class="tag">Flutter</span>
+                                    <span class="tag">React Native</span>
+                                    <span class="tag">Xamarin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-footer">
+                       
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modale générique (ajoutez cette structure à votre HTML) -->
+            <div id="techModal" class="modal-blur">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="modal-grid">
+                <div class="modal-text">
+                    <h2 id="modalTitle">Titre</h2>
+                    <p id="modalDescription">Description</p>
+                    <div id="modalDetails"></div>
+                    <a href="#" id="learnMoreBtn" class="explore-btn">En voir plus</a>
+                </div>
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="Technology Image">
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Carrousel mobile pour les cartes tech (remplace votre tech-grid existant) -->
+            <div class="tech-display">
+            <!-- Version desktop -->
+            <div class="tech-grid"></div>
+            
+            <!-- Version mobile -->
+            <div class="tech-carousel-container">
+                <button class="carousel-btn prev-btn">&#10094;</button>
+                <div class="tech-slideshow"></div>
+                <button class="carousel-btn next-btn">&#10095;</button>
+            </div>
+            </div>
+            
+            <button class="load-more" id="loadMore">Voir plus</button>
+        </div>
+    </main>
+
+    
+
+    <!-- Ton Footer -->
+    <footer class="sections-mt" style="background-color: #0a0a0a; padding: 3vw 0; text-align:center;">
+        <div class="container">
+            <p>© 2024 [NomDeVotreEntreprise]. Tous droits réservés.</p>
+            <p class="fs-2 opacity-80">Conçu avec passion.</p>
+        </div>
+    </footer>
+    <!-- Fin Footer -->
+    <script src="/dist/assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+body {
+    overflow-x: scroll;
+}
+
+/* ===================
+ * SECTION TOUS LES SERVICES
+ * =================== */
+
+
+ .slideshow-container {
+    margin-top: 2vw;
+    overflow: hidden;
+    min-height: 60vmin;
+    cursor: grab;
+}
+.slideshow-container:active {
+    cursor: grabbing;
+}
+.slideshow {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    pointer-events: none;
+}
+.slide {
+    flex-shrink: 0;
+    height: 100%;
+    width: 80vmin;
+    color: var(--white);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.slide:not(:nth-child(1)) {
+    margin-left: 10px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.slide h2, .slide a {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.39);
+}
+
+.slide h2 {
+    position: absolute;
+    top: clamp(10px, 2vw, 20px);
+    left: clamp(10px, 2vw, 20px);
+    font-size: 40px;
+    font-weight: 300;
+}
+.slide a {
+    position: absolute;
+    bottom: clamp(10px, 2vw, 20px);
+    right: clamp(10px, 2vw, 20px);
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 300;
+}
+
+
+/* Exemple pour .s1 à .s6 */
+
+.s1 {
+    background-image: url('https://images.unsplash.com/photo-1506765515384-028b60a970df');
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 400px;
+  }
+.s2 {
+    background-image: url('https://images.unsplash.com/photo-1496309732348-3627f3f040ee');
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 400px;
+  }
+.s3 {
+    background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475');
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 400px;
+  }
+.s4 {
+    background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d');
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 400px;
+  }
+.s5 {
+    background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c');
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 400px;
+  }
+.s6 {
+    background-image: url('https://images.unsplash.com/photo-1605902711622-cfb43c44367f');
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 400px;
+  }

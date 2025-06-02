@@ -1,0 +1,968 @@
+
+// ===================
+// LE CODE DU CARROUSEL
+// ===================
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.slideshow');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+    let momentum = 0;
+    let animationId;
+    let lastPageX;
+    
+    // Fonction pour faire défiler vers la slide précédente
+    function slidePrev() {
+        const slideWidth = document.querySelector('.slide').offsetWidth + 20; // largeur + marge
+        smoothScroll(slider.scrollLeft - slideWidth);
+    }
+    
+    // Fonction pour faire défiler vers la slide suivante
+    function slideNext() {
+        const slideWidth = document.querySelector('.slide').offsetWidth + 20; // largeur + marge
+        smoothScroll(slider.scrollLeft + slideWidth);
+    }
+    
+    // Défilement fluide vers une position
+    function smoothScroll(targetPosition) {
+        cancelMomentumTracking();
+        
+        const startPosition = slider.scrollLeft;
+        const distance = targetPosition - startPosition;
+        const duration = 500; // ms
+        let startTime = null;
+        
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const easeInOutQuad = progress < 0.5 
+                ? 2 * progress * progress 
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                
+            slider.scrollLeft = startPosition + distance * easeInOutQuad;
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            }
+        }
+        
+        requestAnimationFrame(animation);
+    }
+    
+    // Écouteurs d'événements pour les boutons
+    prevBtn.addEventListener('click', slidePrev);
+    nextBtn.addEventListener('click', slideNext);
+    
+    // Gestion du défilement au drag pour souris
+    slider.addEventListener('mousedown', e => {
+        e.preventDefault(); // Empêche la sélection de texte lors du drag
+        isDragging = true;
+        slider.classList.add('active');
+        startX = e.pageX;
+        lastPageX = e.pageX;
+        scrollLeft = slider.scrollLeft;
+        cancelMomentumTracking();
+    });
+    
+    slider.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        
+        // Calcul de la distance parcourue
+        const x = e.pageX;
+        const dragDistance = x - startX;
+        
+        // Mise à jour de la position du scroll
+        slider.scrollLeft = scrollLeft - dragDistance;
+        
+        // Calcul du momentum
+        momentum = lastPageX - e.pageX;
+        lastPageX = e.pageX;
+    });
+    
+    slider.addEventListener('mouseup', finishDrag);
+    slider.addEventListener('mouseleave', finishDrag);
+    
+    function finishDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        slider.classList.remove('active');
+        beginMomentumTracking();
+    }
+    
+    // Gestion du défilement au drag pour mobile/tactile
+    slider.addEventListener('touchstart', e => {
+        isDragging = true;
+        slider.classList.add('active');
+        startX = e.touches[0].pageX;
+        lastPageX = e.touches[0].pageX;
+        scrollLeft = slider.scrollLeft;
+        cancelMomentumTracking();
+    }, { passive: true });
+    
+    slider.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        
+        const x = e.touches[0].pageX;
+        const dragDistance = x - startX;
+        
+        slider.scrollLeft = scrollLeft - dragDistance;
+        
+        momentum = lastPageX - e.touches[0].pageX;
+        lastPageX = e.touches[0].pageX;
+    }, { passive: true });
+    
+    slider.addEventListener('touchend', finishDrag);
+    
+    // Fonctions pour l'effet d'inertie
+    function beginMomentumTracking() {
+        cancelMomentumTracking();
+        animationId = requestAnimationFrame(momentumLoop);
+    }
+    
+    function cancelMomentumTracking() {
+        cancelAnimationFrame(animationId);
+    }
+    
+    function momentumLoop() {
+        slider.scrollLeft += momentum;
+        momentum *= 0.92; // Ajustez ce facteur pour plus ou moins d'inertie
+        
+        if (Math.abs(momentum) > 0.3) {
+            animationId = requestAnimationFrame(momentumLoop);
+        }
+    }
+    
+    // Navigation au clavier
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            slidePrev();
+        } else if (e.key === 'ArrowRight') {
+            slideNext();
+        }
+    });
+    
+    // Empêcher le scroll de page lors du défilement horizontal
+    slider.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY;
+    }, { passive: false });
+});
+
+
+
+
+// AUTRE CODE //////////////////////////////
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éléments Interactifs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .element {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            position: relative;
+        }
+
+        .element:hover {
+            transform: scale(1.05);
+        }
+
+        .element:nth-child(1) {
+            background-color: #ff6b6b;
+        }
+
+        .element:nth-child(2) {
+            background-color: #48dbfb;
+        }
+
+        .element:nth-child(3) {
+            background-color: #1dd1a1;
+        }
+
+        .hover-message {
+            position: fixed;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            color: #333;
+            font-weight: bold;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 100;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hover-media {
+            position: fixed;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 100;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 120px;
+            height: 90px;
+            overflow: hidden;
+        }
+        
+        .hover-media img,
+        .hover-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .blur-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .blur-container.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            max-width: 80%;
+            max-height: 80vh;
+            border-radius: 10px;
+            overflow: auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .modal-description {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-image {
+            width: 100%;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.03);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="element" 
+             data-message="Découvrir" 
+             data-media-type="text" 
+             data-title="Découvrir notre univers" 
+             data-description="Plongez dans un monde de possibilités infinies. Notre collection 'Découvrir' vous invite à explorer des horizons nouveaux et à repousser les frontières de votre imagination. Chaque image raconte une histoire unique, chaque détail est soigneusement pensé pour vous offrir une expérience immersive."
+             data-images='["/api/placeholder/600/400", "/api/placeholder/600/400", "/api/placeholder/600/400"]'>
+            Élément 1
+        </div>
+        <div class="element" 
+             data-message="Explorer" 
+             data-media-type="text" 
+             data-title="Explorer les innovations" 
+             data-description="L'exploration est au cœur de notre démarche créative. Dans cette section, nous vous présentons les innovations les plus remarquables, celles qui transforment notre façon de percevoir le monde. Laissez-vous guider par la curiosité et découvrez des concepts révolutionnaires."
+             data-images='["/api/placeholder/600/400", "/api/placeholder/600/400", "/api/placeholder/600/400"]'>
+            Élément 2
+        </div>
+        <div class="element" 
+             data-message="Créer" 
+             data-media-type="image" 
+             data-media-src="/api/placeholder/200/150" 
+             data-title="Créer sans limites" 
+             data-description="La création est un processus sans fin, une aventure perpétuelle à la recherche de la beauté et de l'originalité. Notre espace 'Créer' vous donne les outils et l'inspiration nécessaires pour donner vie à vos idées les plus ambitieuses. Chaque projet est une opportunité de repousser vos limites."
+             data-images='["/api/placeholder/600/400", "/api/placeholder/600/400", "/api/placeholder/600/400"]'>
+            Élément 3
+        </div>
+    </div>
+
+    <div class="hover-message" id="hover-message"></div>
+    <div class="hover-media" id="hover-media">
+        <img id="media-content" src="/api/placeholder/200/150" alt="Aperçu">
+    </div>
+    
+    <div class="blur-container" id="blur-container">
+        <div class="modal-content">
+            <h2 class="modal-title" id="modal-title"></h2>
+            <p class="modal-description" id="modal-description"></p>
+            <div class="image-gallery" id="image-gallery"></div>
+        </div>
+        <button class="close-btn">&times;</button>
+    </div>
+
+    <script>
+        const elements = document.querySelectorAll('.element');
+        const hoverMessage = document.getElementById('hover-message');
+        const hoverMedia = document.getElementById('hover-media');
+        const mediaContent = document.getElementById('media-content');
+        const blurContainer = document.getElementById('blur-container');
+        const modalImage = document.getElementById('modal-image');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Fonction pour suivre le curseur avec le message texte
+        function followCursorWithText(e, element) {
+            const message = element.getAttribute('data-message');
+            hoverMessage.textContent = message;
+            hoverMessage.style.opacity = '1';
+            hoverMedia.style.opacity = '0';
+            
+            // Calcul de la position du message par rapport au curseur
+            const x = e.clientX;
+            const y = e.clientY - 30; // Légèrement au dessus du curseur
+            
+            hoverMessage.style.left = `${x}px`;
+            hoverMessage.style.top = `${y}px`;
+        }
+        
+        // Fonction pour suivre le curseur avec le média (image/vidéo)
+        function followCursorWithMedia(e, element) {
+            hoverMessage.style.opacity = '0';
+            hoverMedia.style.opacity = '1';
+            
+            // Préparation du contenu média
+            const mediaType = element.getAttribute('data-media-type');
+            const mediaSrc = element.getAttribute('data-media-src');
+            
+            if (mediaType === 'image') {
+                if (mediaContent.tagName.toLowerCase() !== 'img') {
+                    const img = document.createElement('img');
+                    img.id = 'media-content';
+                    img.src = mediaSrc;
+                    img.alt = 'Aperçu';
+                    hoverMedia.innerHTML = '';
+                    hoverMedia.appendChild(img);
+                } else {
+                    mediaContent.src = mediaSrc;
+                }
+            } else if (mediaType === 'video') {
+                if (mediaContent.tagName.toLowerCase() !== 'video') {
+                    const video = document.createElement('video');
+                    video.id = 'media-content';
+                    video.src = mediaSrc;
+                    video.autoplay = true;
+                    video.muted = true;
+                    video.loop = true;
+                    hoverMedia.innerHTML = '';
+                    hoverMedia.appendChild(video);
+                } else {
+                    mediaContent.src = mediaSrc;
+                }
+            }
+            
+            // Calcul de la position du média par rapport au curseur
+            const x = e.clientX;
+            const y = e.clientY - 60; // Plus haut que le curseur pour la visibilité
+            
+            hoverMedia.style.left = `${x}px`;
+            hoverMedia.style.top = `${y}px`;
+        }
+
+        // Pour chaque élément, ajouter les gestionnaires d'événements
+        elements.forEach(element => {
+            // Événement quand la souris entre sur l'élément
+            element.addEventListener('mouseenter', () => {
+                const mediaType = element.getAttribute('data-media-type');
+                if (mediaType === 'text') {
+                    hoverMessage.style.opacity = '1';
+                } else {
+                    hoverMedia.style.opacity = '1';
+                }
+            });
+
+            // Événement quand la souris bouge sur l'élément
+            element.addEventListener('mousemove', (e) => {
+                const mediaType = element.getAttribute('data-media-type');
+                if (mediaType === 'text') {
+                    followCursorWithText(e, element);
+                } else {
+                    followCursorWithMedia(e, element);
+                }
+            });
+
+            // Événement quand la souris quitte l'élément
+            element.addEventListener('mouseleave', () => {
+                hoverMessage.style.opacity = '0';
+                hoverMedia.style.opacity = '0';
+            });
+
+            // Événement quand on clique sur l'élément
+            element.addEventListener('click', () => {
+                // Récupérer les données spécifiques à cet élément
+                const title = element.getAttribute('data-title');
+                const description = element.getAttribute('data-description');
+                const imagesStr = element.getAttribute('data-images');
+                const images = JSON.parse(imagesStr);
+                
+                // Mettre à jour le contenu de la modale
+                const modalTitle = document.getElementById('modal-title');
+                const modalDescription = document.getElementById('modal-description');
+                const imageGallery = document.getElementById('image-gallery');
+                
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                // Vider puis remplir la galerie d'images
+                imageGallery.innerHTML = '';
+                images.forEach(imageSrc => {
+                    const img = document.createElement('img');
+                    img.src = imageSrc;
+                    img.alt = title;
+                    img.className = 'gallery-image';
+                    imageGallery.appendChild(img);
+                });
+                
+                // Afficher la modale
+                blurContainer.classList.add('active');
+            });
+        });
+
+        // Fermer la div avec l'image quand on clique sur le bouton de fermeture
+        closeBtn.addEventListener('click', () => {
+            blurContainer.classList.remove('active');
+        });
+
+        // Fermer également en cliquant à l'extérieur de l'image
+        blurContainer.addEventListener('click', (e) => {
+            if (e.target === blurContainer) {
+                blurContainer.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+/////////////////////
+
+
+<div class="container">
+    <div class="instructions">
+        <h1>Bibliothèque d'Animations</h1>
+        <p>Scrollez pour découvrir différentes animations qui se déclenchent à 40% de visibilité à l'écran.</p>
+    </div>
+    
+    <!-- SECTION ANIMATIONS DE TEXTE -->
+    <section>
+        <h2>Animations de Texte</h2>
+        
+        <!-- 1. Animation lettres floues séquentielles -->
+        <div class="demo-container">
+            <div class="demo-box animate-element blur-letters" data-text="Animation Lettres Floues">Animation Lettres Floues</div>
+        </div>
+        
+        <!-- 2. Animation machine à écrire -->
+        <div class="demo-container">
+            <div class="demo-box animate-element typewriter">Animation Machine à Écrire</div>
+        </div>
+        
+        <!-- 3. Animation fade-in mot par mot -->
+        <div class="demo-container">
+            <div class="demo-box animate-element word-fade" data-text="Animation Mot par Mot">Animation Mot par Mot</div>
+        </div>
+        
+        <!-- 4. Animation lettres qui tournent -->
+        <div class="demo-container">
+            <div class="demo-box animate-element spin-letters" data-text="Lettres qui Tournent">Lettres qui Tournent</div>
+        </div>
+    </section>
+    
+    <!-- SECTION ANIMATIONS DE DIV -->
+    <section>
+        <h2>Animations de Div</h2>
+        
+        <!-- 1. Animation bas vers haut -->
+        <div class="demo-container">
+            <div class="demo-box animate-element slide-up">Du Bas vers le Haut</div>
+        </div>
+        
+        <!-- 2. Animation haut vers bas -->
+        <div class="demo-container">
+            <div class="demo-box animate-element slide-down">Du Haut vers le Bas</div>
+        </div>
+        
+        <!-- 3. Animation gauche vers droite -->
+        <div class="demo-container">
+            <div class="demo-box animate-element slide-right">De Gauche à Droite</div>
+        </div>
+        
+        <!-- 4. Animation droite vers gauche -->
+        <div class="demo-container">
+            <div class="demo-box animate-element slide-left">De Droite à Gauche</div>
+        </div>
+        
+        <!-- 5. Animation zoom in -->
+        <div class="demo-container">
+            <div class="demo-box animate-element zoom-in">Effet Zoom</div>
+        </div>
+        
+        <!-- 6. Animation avec rotation -->
+        <div class="demo-container">
+            <div class="demo-box animate-element rotate-in">Rotation et Zoom</div>
+        </div>
+    </section>
+
+    <!-- SECTION AVEC PLUSIEURS BLOCS -->
+    <section>
+        <h2>Animer Plusieurs Éléments</h2>
+        <div class="demo-container">
+            <div class="colored-blocks">
+                <div class="block animate-element slide-up">1</div>
+                <div class="block animate-element slide-down">2</div>
+                <div class="block animate-element slide-right">3</div>
+                <div class="block animate-element slide-left">4</div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+////////////////////
+
+
+<div class="tech-features">
+    <h4 class="features-title">Avantages</h4>
+    <ul class="features-list">
+        <li class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span class="feature-text">Configuration automatique</span>
+        </li>
+        <li class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span class="feature-text">Intégration Spring ecosystem</span>
+        </li>
+        <li class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span class="feature-text">Démarrage rapide</span>
+        </li>
+    </ul>
+</div>
+
+                <!-- Docker -->
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <img class="tech-logo" src="/dist/assets/images/logo-gtz-square.svg" alt="JavaScript Logo">
+                        <h3 class="tech-title">Docker</h3>
+                    </div>
+                    <div class="tech-content">
+                        <p class="tech-description">Plateforme de conteneurisation pour développer, déployer et exécuter des applications.</p>
+                        <div class="tech-details">
+                            <div class="tech-alternatives">
+                                <h4 class="alternatives-title">Alternatives</h4>
+                                <div class="alternatives-tags">
+                                    <span class="tag">Podman</span>
+                                    <span class="tag">Kubernetes</span>
+                                    <span class="tag">LXC</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-footer">
+
+                    </div>
+                </div>
+
+
+//////////////////////////////////////////
+
+
+
+.tech-grid {
+    display: grid;
+    gap: 10px;
+    /* Par défaut pour les grands écrans (et au-dessus du plus grand breakpoint) */
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    margin-bottom: 3vw;
+}
+
+/* Pour les tablettes et écrans de taille moyenne */
+/* Par exemple, en dessous de 992px */
+@media (max-width: 991.98px) {
+    .tech-grid {
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+    }
+}
+
+/* Pour les petits écrans (mobiles) */
+/* Par exemple, en dessous de 768px */
+@media (max-width: 767.98px) {
+
+        
+}
+
+@media (max-width: 367.98px) {
+    .tech-grid {
+        display: none;
+        grid-template-columns: minmax(1fr);
+    }
+
+    .tech-carousel {
+        display: block;
+    }
+}
+
+.tech-card {
+    background: rgba(0, 0, 0, 0.473);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: var(--tr-1);
+    backdrop-filter: blur(var(--backdrop-blur));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* .tech-card:hover {
+    transform: translateY(-5px);
+    border: 1px solid var(--primary-color) !important;
+    box-shadow: 0 0 20px rgba(255, 201, 0, 0.2) !important;
+    background: rgba(0, 0, 0, 0.6);
+} */
+
+.tech-header {
+    padding: 1.5rem 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.tech-badge {
+    background: var(--primary-color);
+    color: var(--black);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--fw-7);
+    font-size: var(--fs-3);
+}
+
+.tech-title {
+    margin: 0;
+    font-size: var(--fs-5);
+    color: var(--white);
+    font-family: var(--ff-titre-2);
+    font-weight: var(--fw-6);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.tech-content {
+    padding: 1rem ;
+    flex-grow: 1;
+}
+
+.tech-description {
+    color: var(--gray-400);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    font-size: var(--fs-3);
+}
+
+.tech-details {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/* LE CARROUSEL DE CARDS */
+
+/* Version Mobile */
+.tech-carousel {
+    display: none;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.tech-carousel .tech-card {
+    min-width: 100%;
+    max-width: 400px;
+    flex-shrink: 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Navigation */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 201, 0, 0.2);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gray-400);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dot.active {
+    background: var(--primary-color);
+}
+
+
+/* Styles améliorés pour la liste */
+.features-title, .alternatives-title {
+    position: relative;
+    color: var(--primary-color);
+    font-size: var(--fs-3);
+    font-weight: var(--fw-6);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    font-family: var(--ff-titre-2);
+}
+
+.features-title::after, .alternatives-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), rgba(255, 201, 0, 0.2));
+}
+
+.features-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-icon {
+    color: var(--primary-color);
+    font-weight: var(--fw-7);
+    font-size: var(--fs-4);
+    line-height: 1;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+}
+
+.feature-text {
+    color: var(--gray-200);
+    font-size: var(--fs-2);
+    line-height: 1.5;
+}
+
+.tech-alternatives {
+    margin-top: 0.5rem;
+}
+
+/* Styles pour les tags alternatives */
+.alternatives-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    background: rgba(255, 201, 0, 0.1);
+    color: var(--primary-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: var(--fs-1);
+    font-weight: var(--fw-5);
+    border: 1px solid rgba(255, 201, 0, 0.3);
+    transition: var(--tr-1);
+}
+
+.tag:hover {
+    background: rgba(255, 201, 0, 0.2);
+}
+
+.tech-footer {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tech-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    opacity: 0.9;
+    filter: grayscale(30%) brightness(0.9);
+    transition: var(--tr-1);
+}
+
+.tech-card:hover .tech-logo {
+    opacity: 1;
+    filter: grayscale(0%) brightness(1.1);
+}
+
+/* Bouton Voir plus */
+.load-more {
+    display: block;
+    margin: 3rem auto 0;
+    padding: 0.75rem 2rem;
+    background: rgba(255, 201, 0, 0.1);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    font-weight: var(--fw-6);
+    cursor: pointer;
+    transition: var(--tr-1);
+    backdrop-filter: blur(var(--backdrop-blur));
+    font-size: var(--fs-3);
+}
+
+.load-more:hover {
+    background: rgba(255, 201, 0, 0.2);
+    box-shadow: 0 0 15px rgba(255, 201, 0, 0.3);
+}
+
