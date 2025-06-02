@@ -1132,7 +1132,7 @@ details>ul .img-ctn {
 }
 
 .item {
-    width: 200px;
+    width: 130px;
     height: 100px;
     border-radius: 6px;
     opacity: 0.8;
@@ -2209,37 +2209,43 @@ details>ul .img-ctn {
 /* Exemple pour .s1 à .s6 */
 
 .s1 {
-    background-image: url('https://images.unsplash.com/photo-1506765515384-028b60a970df');
+    background-image: url(/dist/assets/images/img-site-web.png);
     background-size: cover;
     background-position: center;
 }
 
 .s2 {
-    background-image: url('https://images.unsplash.com/photo-1496309732348-3627f3f040ee');
+    background-image: url(/dist/assets/images/img-web-app.jpg);
     background-size: cover;
     background-position: center;
 }
 
 .s3 {
-    background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475');
+    background-image: url(/dist/assets/images/img-app-mobile.png);
     background-size: cover;
     background-position: center;
 }
 
 .s4 {
-    background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d');
+    background-image: url(/dist/assets/images/img-conception-graphique.jpg);
     background-size: cover;
     background-position: center;
 }
 
 .s5 {
-    background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c');
+    background-image: url(/dist/assets/images/img-audit-conseil-tech.png);
     background-size: cover;
     background-position: center;
 }
 
 .s6 {
-    background-image: url('https://images.unsplash.com/photo-1605902711622-cfb43c44367f');
+    background-image: url(/dist/assets/images/img-installation-logiciels.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.s7 {
+    background-image: url(/dist/assets/images/img-accompagnement-cm.webp);
     background-size: cover;
     background-position: center;
 }
@@ -2257,8 +2263,8 @@ details>ul .img-ctn {
     transition: background-image 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     background-origin: content-box;
-    backdrop-filter: blur(var(--backdrop-blur));
-    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
 }
 
 /* Gradient vertical pour l'image de fond uniquement */
@@ -2270,6 +2276,8 @@ details>ul .img-ctn {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.473);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     z-index: 1;
     pointer-events: none;
 }
@@ -2282,7 +2290,9 @@ details>ul .img-ctn {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.693);
+    backdrop-filter: blur(34px);
+    -webkit-backdrop-filter: blur(34px);
     z-index: 0; /* Placé en dessous du gradient */
 }
 
@@ -2317,7 +2327,6 @@ details>ul .img-ctn {
     background: rgba(0, 0, 0, 0.473);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--primary-color) !important;
-    box-shadow: 0 0 20px rgba(255, 201, 0, 0.5) !important;
 }
 
 .logo-text {
@@ -2374,15 +2383,27 @@ details>ul .img-ctn {
 @media (max-width: 768px) {
     .logos-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 20px;
-        max-height: calc(3 * (100px + 20px));
+        gap: 10px;
+        max-height: calc(3 * (300px + 20px));
+    }
+    .logo-image {
+        width: 40px;
+        height: 40px;
     }
 }
 
 @media (max-width: 480px) {
     .logos-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-height: calc(3 * (100px + 20px));
+        max-height: calc(3 * (800px + 20px));
+    }
+    .logo-item {
+        display: flex;
+        flex-direction: column;
+    }
+    .logo-text {
+        text-align: center;
+        margin-bottom: 0.3rem;
     }
 }
 
