@@ -747,12 +747,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const output = textChanging.querySelector('.text-output');
     
     const texts = [
-        { text: "Applications Web", color: "#4a6bff" },
-        { text: "Applications mobile", color: "#ff6b6b" },
-        { text: "Installation de logiciels", color: "#6bffb8" },
-        { text: "Réseaux sociaux", color: "#ffb84a" },
+        // { text: "Dev. Sites web et E-com", color: "#00753d" },
+        { text: "Conception graphique", color: "#414141" },
+        { text: "Dev. Applications Web", color: "##FFC900" },
+        { text: "Audit-conseil Tech & Cybersécurité", color: "#00998f" },
+        { text: "Réseaux sociaux", color: "#3c0075" },
+        { text: "Dev. Applications mobiles", color: "#9c0707" },
+        { text: "Installation de logiciels Métiers", color: "#6bffb8" },
         { text: "Branding et design", color: "#b84aff" },
-        { text: "Conception graphique", color: "#4afff2" },
     ];
     
     let currentIndex = 0;
